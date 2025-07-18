@@ -10,5 +10,8 @@ export { default as LoadingSpinner } from './LoadingSpinner.jsx';
 export { default as RespectWidget } from '../RespectWidget.jsx';
 export { default as RespectModal } from '../RespectModal.jsx';
 
+// Profile Components
+export { default as ProfileEditModal } from '../ProfileEditModal.jsx';
+
 // Böylece componentleri şöyle import edebiliriz:
 // import { Button, Card, Avatar, Badge, RespectWidget, RespectModal } from '@/components/ui'; 

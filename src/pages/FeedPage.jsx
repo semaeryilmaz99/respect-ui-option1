@@ -478,7 +478,8 @@ const FeedPage = () => {
               <Avatar 
                 username="Kullanıcı" 
                 size="sm"
-                onClick={() => {/* Navigate to profile */}}
+                onClick={() => navigate('/profile')}
+                className="cursor-pointer hover:opacity-80 transition-opacity"
               />
             </div>
           </div>

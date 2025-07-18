@@ -6,6 +6,7 @@ import FeedPage from './pages/FeedPage'
 import ArtistPage from './pages/ArtistPage'
 import SongPage from './pages/SongPage'
 import SendRespectPage from './pages/SendRespectPage'
+import UserProfilePage from './pages/UserProfilePage'
 import './App.css'
 
 function App() {
@@ -28,7 +29,8 @@ function App() {
         
         <Route path="/song/:id" element={<SongPage />} />
         
-        <Route path="/profile/:username" element={<div className="min-h-screen flex items-center justify-center bg-gray-50"><div className="text-center"><h1 className="text-3xl font-bold text-gray-900 mb-4">👤 Profil Sayfası</h1><p className="text-gray-600">Yakında gelecek...</p></div></div>} />
+        <Route path="/profile/:username" element={<UserProfilePage />} />
+        <Route path="/profile" element={<UserProfilePage />} />
         
         <Route path="/send-respect" element={<SendRespectPage />} />
         
