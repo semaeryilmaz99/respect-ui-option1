@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Card, Input, LoadingSpinner } from '../components/ui';
 
 const AuthPage = () => {
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -80,6 +82,9 @@ const AuthPage = () => {
       // TODO: Implement actual authentication logic
       alert(isLogin ? 'Giriş başarılı! (Demo)' : 'Kayıt başarılı! (Demo)');
       
+      // Başarılı auth sonrası feed sayfasına yönlendir
+      navigate('/feed');
+      
     } catch (error) {
       console.error('Auth error:', error);
       alert('Bir hata oluştu. Lütfen tekrar deneyin.');
@@ -92,6 +97,9 @@ const AuthPage = () => {
     console.log(`${provider} OAuth login attempt`);
     // TODO: Implement OAuth logic
     alert(`${provider} ile giriş (Demo)`);
+    
+    // Demo için direkt feed'e yönlendir
+    navigate('/feed');
   };
 
   const toggleAuthMode = () => {

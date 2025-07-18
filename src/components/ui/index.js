@@ -6,5 +6,9 @@ export { default as Badge } from './Badge.jsx';
 export { default as Input } from './Input.jsx';
 export { default as LoadingSpinner } from './LoadingSpinner.jsx';
 
+// Respect System Components
+export { default as RespectWidget } from '../RespectWidget.jsx';
+export { default as RespectModal } from '../RespectModal.jsx';
+
 // Böylece componentleri şöyle import edebiliriz:
-// import { Button, Card, Avatar, Badge } from '@/components/ui'; 
+// import { Button, Card, Avatar, Badge, RespectWidget, RespectModal } from '@/components/ui'; 
