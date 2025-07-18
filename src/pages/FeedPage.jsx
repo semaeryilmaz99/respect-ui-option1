@@ -23,7 +23,7 @@ const FeedPage = () => {
         respectCount: 1250
       },
       timestamp: '2 saat önce',
-      description: 'Bu şarkı bugün en çok respect alan şarkı oldu! 🔥'
+      description: 'Bu şarkı bugün en çok respect alan şarkı oldu!'
     },
     {
       id: 2,
@@ -50,7 +50,7 @@ const FeedPage = () => {
         avatar: null,
         verified: true
       },
-      message: 'Sevgili hayranlarım, desteğiniz için çok teşekkür ederim! ❤️',
+      message: 'Sevgili hayranlarım, desteğiniz için çok teşekkür ederim!',
       timestamp: '6 saat önce',
       respectCount: 890
     },
@@ -68,7 +68,7 @@ const FeedPage = () => {
         trendingPosition: 1
       },
       timestamp: '8 saat önce',
-      description: 'Trending #1 şarkı oldu! 📈'
+      description: 'Trending #1 şarkı oldu!'
     },
     {
       id: 5,
@@ -130,7 +130,7 @@ const FeedPage = () => {
         avatar: null,
         verified: true
       },
-      message: 'Konserim için heyecanlıyım! Görüşmek üzere 🎤',
+      message: 'Konserim için heyecanlıyım! Görüşmek üzere',
       timestamp: '5 saat önce',
       originalMessage: 'Konser ne zaman?'
     },
@@ -145,7 +145,7 @@ const FeedPage = () => {
         name: 'Barış Manço',
         username: 'barismancoofficial'
       },
-      message: 'Harika bir şarkı! 👏',
+      message: 'Harika bir şarkı!',
       timestamp: '1 gün önce',
       yourMessage: 'Bu şarkı efsane'
     }
@@ -165,7 +165,14 @@ const FeedPage = () => {
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
                   <button 
-                    className="font-semibold text-purple-600 hover:text-purple-800 transition-colors"
+                    className="font-semibold transition-colors"
+                    style={{ color: '#669DFE' }}
+                    onMouseEnter={(e) => {
+                      e.target.style.color = '#1E5CC4';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.color = '#669DFE';
+                    }}
                     onClick={() => navigate(`/artist/${item.artist.username}`)}
                   >
                     {item.artist.name}
@@ -175,10 +182,10 @@ const FeedPage = () => {
                   <span className="text-gray-400 text-sm">• {item.timestamp}</span>
                 </div>
                 <p className="text-gray-700 mb-2">{item.description}</p>
-                <div className="bg-purple-50 rounded-lg p-3">
+                <div className="rounded-lg p-3" style={{ backgroundColor: '#FBFCFD', border: '1px solid #B1CBE7' }}>
                   <div className="flex items-center justify-between">
                     <div>
-                      <h4 className="font-medium">🎵 {item.song.title}</h4>
+                      <h4 className="font-medium">{item.song.title}</h4>
                       <p className="text-sm text-gray-600">
                         <Badge.Respect amount={item.song.respectCount} className="mr-2" />
                         Bu şarkıya gönderildi
@@ -209,10 +216,10 @@ const FeedPage = () => {
                   <span className="text-gray-400 text-sm">• {item.timestamp}</span>
                 </div>
                 <p className="text-gray-700 mb-2">{item.description}</p>
-                <div className="bg-blue-50 rounded-lg p-3">
+                <div className="rounded-lg p-3" style={{ backgroundColor: '#B1CBE7', border: '1px solid #669DFE' }}>
                   <div className="flex items-center justify-between">
                     <div>
-                      <h4 className="font-medium">🎶 {item.song.title}</h4>
+                      <h4 className="font-medium">{item.song.title}</h4>
                       <p className="text-sm text-gray-600">Yeni yayınlandı</p>
                     </div>
                     <div className="flex gap-2">
@@ -242,11 +249,11 @@ const FeedPage = () => {
                   <span className="text-gray-500 text-sm">@{item.artist.username}</span>
                   <span className="text-gray-400 text-sm">• {item.timestamp}</span>
                 </div>
-                <div className="bg-green-50 border-l-4 border-green-500 rounded-lg p-3">
-                  <p className="text-gray-700 mb-2">💬 {item.message}</p>
+                <div className="border-l-4 rounded-lg p-3" style={{ backgroundColor: '#FBFCFD', borderLeftColor: '#669DFE' }}>
+                  <p className="text-gray-700 mb-2">{item.message}</p>
                   <div className="flex items-center gap-4 text-sm text-gray-600">
                     <Badge.Respect amount={item.respectCount} />
-                    <span>👥 156 kişi beğendi</span>
+                    <span>156 kişi beğendi</span>
                   </div>
                 </div>
               </div>
@@ -271,10 +278,10 @@ const FeedPage = () => {
                   <span className="text-gray-400 text-sm">• {item.timestamp}</span>
                 </div>
                 <p className="text-gray-700 mb-2">{item.description}</p>
-                <div className="bg-orange-50 rounded-lg p-3">
+                <div className="rounded-lg p-3" style={{ backgroundColor: '#669DFE', border: '1px solid #1E5CC4' }}>
                   <div className="flex items-center justify-between">
                     <div>
-                      <h4 className="font-medium">🔥 #{item.song.trendingPosition} {item.song.title}</h4>
+                      <h4 className="font-medium">#{item.song.trendingPosition} {item.song.title}</h4>
                       <p className="text-sm text-gray-600">Trending şarkılar listesinde</p>
                     </div>
                     <Button size="sm" variant="primary">Dinle</Button>
@@ -332,8 +339,8 @@ const FeedPage = () => {
                   <span className="text-gray-400 text-sm">• {item.timestamp}</span>
                 </div>
                 <p className="text-gray-700 mb-2">{item.description}</p>
-                <div className="bg-purple-50 rounded-lg p-3">
-                  <h4 className="font-medium">🎵 {item.song.title}</h4>
+                <div className="rounded-lg p-3" style={{ backgroundColor: '#FBFCFD', border: '1px solid #B1CBE7' }}>
+                  <h4 className="font-medium">{item.song.title}</h4>
                   <Badge.Respect amount={item.song.respectCount} />
                 </div>
               </div>
@@ -358,8 +365,8 @@ const FeedPage = () => {
                   <span className="text-gray-400 text-sm">• {item.timestamp}</span>
                 </div>
                 <p className="text-gray-700 mb-2">{item.description}</p>
-                <div className="bg-blue-50 rounded-lg p-3">
-                  <h4 className="font-medium">🎶 {item.song.title}</h4>
+                <div className="rounded-lg p-3" style={{ backgroundColor: '#B1CBE7', border: '1px solid #669DFE' }}>
+                  <h4 className="font-medium">{item.song.title}</h4>
                   <div className="flex gap-2 mt-2">
                     <Button size="sm" variant="outline">Respect Gönder</Button>
                     <Button size="sm" variant="primary">Dinle</Button>
@@ -386,11 +393,11 @@ const FeedPage = () => {
                   <span className="text-gray-400 text-sm">• {item.timestamp}</span>
                 </div>
                 <div className="bg-gray-50 rounded-lg p-2 mb-2 text-sm text-gray-600">
-                  📝 Soru: "{item.originalMessage}"
+                  Soru: "{item.originalMessage}"
                 </div>
-                <div className="bg-green-50 border-l-4 border-green-500 rounded-lg p-3">
-                  <p className="text-gray-700">💬 {item.message}</p>
-                </div>
+                                  <div className="border-l-4 rounded-lg p-3" style={{ backgroundColor: '#FBFCFD', borderLeftColor: '#669DFE' }}>
+                    <p className="text-gray-700">{item.message}</p>
+                  </div>
               </div>
             </div>
           </Card>
@@ -413,11 +420,11 @@ const FeedPage = () => {
                 </div>
                 <p className="text-gray-700 mb-2">Mesajına yanıt verdi:</p>
                 <div className="bg-blue-50 rounded-lg p-2 mb-2 text-sm">
-                  📝 Sen: "{item.yourMessage}"
+                  Sen: "{item.yourMessage}"
                 </div>
-                <div className="bg-gray-50 rounded-lg p-3">
-                  <p className="text-gray-700">💬 {item.message}</p>
-                </div>
+                                  <div className="bg-gray-50 rounded-lg p-3">
+                    <p className="text-gray-700">{item.message}</p>
+                  </div>
               </div>
             </div>
           </Card>
@@ -429,15 +436,33 @@ const FeedPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <>
+      {/* Fixed Border Frame */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        border: '5px solid #1E5CC4',
+        zIndex: 20,
+        pointerEvents: 'none'
+      }} />
+      
+      <div className="min-h-screen" style={{ backgroundColor: '#FBFCFD' }}>
       {/* Header */}
       <header className="bg-white shadow-sm border-b sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                🎵 Respect
+              <h1 className="text-2xl font-bold" style={{ 
+                background: 'linear-gradient(90deg, #669DFE 0%, #1E5CC4 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}>
+                Respect
               </h1>
             </div>
 
@@ -452,14 +477,34 @@ const FeedPage = () => {
               <Button
                 variant="primary"
                 size="md"
-                className="hidden md:flex bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 shadow-lg"
+                className="hidden md:flex shadow-lg transition-transform duration-300 hover:scale-105"
+                style={{ 
+                  background: 'linear-gradient(90deg, #669DFE 0%, #1E5CC4 100%)',
+                  border: 'none',
+                  color: 'white'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.background = 'linear-gradient(90deg, #1E5CC4 0%, #669DFE 100%)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.background = 'linear-gradient(90deg, #669DFE 0%, #1E5CC4 100%)';
+                }}
                 onClick={() => navigate('/send-respect')}
               >
-                💝 Respect Gönder
+                Respect Gönder
               </Button>
 
               {/* Notifications */}
-              <button className="relative p-2 text-gray-600 hover:text-purple-600 transition-colors">
+              <button 
+                className="relative p-2 transition-colors"
+                style={{ color: '#C7D0DA' }}
+                onMouseEnter={(e) => {
+                  e.target.style.color = '#669DFE';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.color = '#C7D0DA';
+                }}
+              >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-3.5-3.5a7 7 0 1 0-9.96-9.96A7 7 0 0 0 13 7.5L17 11z" />
                 </svg>
@@ -492,7 +537,7 @@ const FeedPage = () => {
           {/* Topluluk Bölümü */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-gray-900">🌍 Topluluk</h2>
+              <h2 className="text-2xl font-bold" style={{ color: '#1E5CC4' }}>Topluluk</h2>
               <Badge.Online count={1247} />
             </div>
             
@@ -528,7 +573,7 @@ const FeedPage = () => {
           {/* Sana Özel Bölümü */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-gray-900">⭐ Sana Özel</h2>
+              <h2 className="text-2xl font-bold" style={{ color: '#1E5CC4' }}>Sana Özel</h2>
               <Badge variant="info" size="sm">Kişiselleştirilmiş</Badge>
             </div>
 
@@ -539,7 +584,7 @@ const FeedPage = () => {
             {/* Takip Önerileri */}
             <Card className="mt-6">
               <Card.Header>
-                <h3 className="font-semibold text-gray-900">👥 Takip Önerileri</h3>
+                <h3 className="font-semibold" style={{ color: '#1E5CC4' }}>Takip Önerileri</h3>
               </Card.Header>
               <Card.Body>
                 <div className="space-y-3">
@@ -560,38 +605,52 @@ const FeedPage = () => {
             </Card>
 
             {/* Ana Respect CTA */}
-            <Card className="mt-6 bg-gradient-to-br from-purple-50 to-pink-50 border-purple-200 shadow-lg">
+            <Card className="mt-6 shadow-lg" style={{ 
+              background: 'linear-gradient(135deg, #FBFCFD 0%, #B1CBE7 100%)', 
+              borderColor: '#669DFE' 
+            }}>
               <Card.Header>
-                <h3 className="font-semibold text-purple-800 text-center">💝 Sanatçılara Destek Ol</h3>
+                <h3 className="font-semibold text-center" style={{ color: '#1E5CC4' }}>Sanatçılara Destek Ol</h3>
               </Card.Header>
               <Card.Body>
                 <div className="text-center space-y-4">
-                  <p className="text-sm text-purple-700">
+                  <p className="text-sm" style={{ color: '#669DFE' }}>
                     Sevdiğin sanatçılara respect göndererek onları destekle!
                   </p>
                   
                   <Button
                     variant="primary"
                     size="lg"
-                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 shadow-lg transform hover:scale-105 transition-all duration-200 font-bold"
+                    className="w-full shadow-lg transform hover:scale-105 transition-all duration-300 font-bold"
+                    style={{ 
+                      background: 'linear-gradient(90deg, #669DFE 0%, #1E5CC4 100%)',
+                      border: 'none',
+                      color: 'white'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.background = 'linear-gradient(90deg, #1E5CC4 0%, #669DFE 100%)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.background = 'linear-gradient(90deg, #669DFE 0%, #1E5CC4 100%)';
+                    }}
                     onClick={() => navigate('/send-respect')}
                   >
-                    🚀 Respect Gönder
+                    Respect Gönder
                   </Button>
                   
-                  <div className="grid grid-cols-2 gap-2 text-xs text-center">
-                    <div className="bg-white/70 rounded-lg p-2 shadow-sm">
-                      <div className="font-bold text-purple-600">2.1M₺</div>
-                      <div className="text-purple-500">Bu ay</div>
+                                      <div className="grid grid-cols-2 gap-2 text-xs text-center">
+                      <div className="bg-white/70 rounded-lg p-2 shadow-sm">
+                        <div className="font-bold" style={{ color: '#1E5CC4' }}>2.1M₺</div>
+                        <div style={{ color: '#669DFE' }}>Bu ay</div>
+                      </div>
+                      <div className="bg-white/70 rounded-lg p-2 shadow-sm">
+                        <div className="font-bold" style={{ color: '#1E5CC4' }}>15K+</div>
+                        <div style={{ color: '#669DFE' }}>Destekçi</div>
+                      </div>
                     </div>
-                    <div className="bg-white/70 rounded-lg p-2 shadow-sm">
-                      <div className="font-bold text-purple-600">15K+</div>
-                      <div className="text-purple-500">Destekçi</div>
-                    </div>
-                  </div>
                   
-                  <p className="text-xs text-purple-600 italic">
-                    💡 En kolay way to support artists!
+                  <p className="text-xs italic" style={{ color: '#669DFE' }}>
+                    En kolay way to support artists!
                   </p>
                 </div>
               </Card.Body>
@@ -599,7 +658,7 @@ const FeedPage = () => {
 
             {/* Hızlı Respect Widget'ları */}
             <div className="mt-6 space-y-4">
-              <h3 className="font-semibold text-gray-900">⚡ Hızlı Respect</h3>
+              <h3 className="font-semibold" style={{ color: '#1E5CC4' }}>Hızlı Respect</h3>
               
               {/* Full Card Widget - Tarkan */}
               <RespectWidget
@@ -624,18 +683,30 @@ const FeedPage = () => {
       <div className="fixed bottom-6 right-6 z-40">
         <Button
           size="xl"
-          className="rounded-full h-16 w-16 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 shadow-2xl transform hover:scale-110 transition-all duration-300 flex items-center justify-center"
+          className="rounded-full h-16 w-16 shadow-2xl transform hover:scale-110 transition-all duration-300 flex items-center justify-center"
+          style={{ 
+            background: 'linear-gradient(90deg, #669DFE 0%, #1E5CC4 100%)',
+            border: 'none',
+            color: 'white'
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.background = 'linear-gradient(90deg, #1E5CC4 0%, #669DFE 100%)';
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.background = 'linear-gradient(90deg, #669DFE 0%, #1E5CC4 100%)';
+          }}
           onClick={() => navigate('/send-respect')}
         >
-          <span className="text-2xl">💝</span>
+          <span className="text-sm font-bold">R</span>
         </Button>
         
         {/* Floating button tooltip */}
-        <div className="absolute bottom-20 right-0 bg-gray-900 text-white text-sm px-3 py-2 rounded-lg opacity-0 hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+        <div className="absolute bottom-20 right-0 text-white text-sm px-3 py-2 rounded-lg opacity-0 hover:opacity-100 transition-opacity duration-200 whitespace-nowrap" style={{ backgroundColor: '#1E5CC4' }}>
           Respect Gönder
         </div>
       </div>
     </div>
+    </>
   );
 };
 

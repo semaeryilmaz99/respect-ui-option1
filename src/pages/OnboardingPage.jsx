@@ -147,7 +147,7 @@ const OnboardingPage = () => {
     {
       id: 2,
       title: "Respect Gönder",
-      description: "Sevdiğiniz sanatçılara küçük miktarlarda destek olun, onların sanatlarını destekleyin.",
+      description: "Sevdiğiniz sanatçılara dilediğiniz miktarda destek olun, onların sanatlarını destekleyin.",
       gradient: "linear-gradient(135deg, #1E5CC4 0%, #669DFE 100%)",
       stats: "₺2M+ Gönderildi"
     },
