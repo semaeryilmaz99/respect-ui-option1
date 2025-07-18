@@ -55,6 +55,16 @@ const stageAnimations = `
   .stage-light-4 { animation: stageLight4 18s ease-in-out infinite; }
   .stage-light-5 { animation: stageLight5 14s ease-in-out infinite; }
   .stage-light-6 { animation: stageLight6 16s ease-in-out infinite; }
+  
+  @keyframes bounceIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    30% { transform: scale(1.02); opacity: 0.8; }
+    60% { transform: scale(0.98); opacity: 0.9; }
+    80% { transform: scale(1.01); opacity: 0.95; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  
+  .bounce-effect { animation: bounceIn 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
 `;
 
 // Add styles to head
@@ -68,13 +78,13 @@ const OnboardingPage = () => {
   const navigate = useNavigate();
   const [currentFeature, setCurrentFeature] = useState(0);
   const [isVisible, setIsVisible] = useState({});
+  const [bounceKey, setBounceKey] = useState(0);
 
   const features = [
     {
       id: 1,
       title: "Sanatçıları Keşfet",
       description: "Yeni yetenekleri keşfedin, favorilerinizi takip edin ve müzik yolculuğunuza başlayın.",
-      icon: "🎵",
       gradient: "linear-gradient(135deg, #669DFE 0%, #B1CBE7 100%)",
       stats: "50K+ Sanatçı"
     },
@@ -82,7 +92,6 @@ const OnboardingPage = () => {
       id: 2,
       title: "Respect Gönder",
       description: "Sevdiğiniz sanatçılara küçük miktarlarda destek olun, onların sanatlarını destekleyin.",
-      icon: "💝",
       gradient: "linear-gradient(135deg, #1E5CC4 0%, #669DFE 100%)",
       stats: "₺2M+ Gönderildi"
     },
@@ -90,7 +99,6 @@ const OnboardingPage = () => {
       id: 3,
       title: "Canlı Sohbet",
       description: "Sanatçılarla ve diğer hayranlarla gerçek zamanlı sohbet edin, özel mesajlar gönderin.",
-      icon: "💬",
       gradient: "linear-gradient(135deg, #669DFE 0%, #1E5CC4 100%)",
       stats: "24/7 Aktif"
     },
@@ -98,7 +106,6 @@ const OnboardingPage = () => {
       id: 4,
       title: "Müzik Deneyimi",
       description: "Spotify entegrasyonu ile favori şarkılarınızı dinleyin ve yeni müzikler keşfedin.",
-      icon: "🎧",
       gradient: "linear-gradient(135deg, #B1CBE7 0%, #669DFE 100%)",
       stats: "10M+ Şarkı"
     }
@@ -126,9 +133,16 @@ const OnboardingPage = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentFeature(prev => (prev + 1) % features.length);
-    }, 4000);
+      setBounceKey(prev => prev + 1); // Trigger bounce effect
+    }, 4000); // 4000ms = 4 seconds - perfect reading time
     return () => clearInterval(interval);
   }, [features.length]);
+
+  // Bounce effect when manually clicking feature
+  const handleFeatureClick = (index) => {
+    setCurrentFeature(index);
+    setBounceKey(prev => prev + 1);
+  };
 
   // Intersection Observer for animations
   useEffect(() => {
@@ -307,11 +321,23 @@ const OnboardingPage = () => {
       {/* Features Section */}
       <section id="features" className="py-20" style={{ backgroundColor: '#FBFCFD' }} data-animate>
         <div className="max-w-7xl mx-auto px-4">
-          <div className={`text-center mb-16 transition-all duration-1000 ${isVisible.features ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#1E5CC4' }}>
-              Etkinizin Farkında Olun
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 flex flex-wrap justify-center gap-2" style={{ color: '#1E5CC4' }}>
+              <span className={`transition-all duration-1000 ${isVisible.features ? 'opacity-100 translate-x-0 translate-y-0' : 'opacity-0 -translate-x-10 -translate-y-5'}`} 
+                    style={{ transitionDelay: '200ms' }}>
+                Etkinizin
+              </span>
+              <span className={`transition-all duration-1000 ${isVisible.features ? 'opacity-100 translate-x-0 translate-y-0' : 'opacity-0 translate-x-10 -translate-y-5'}`} 
+                    style={{ transitionDelay: '400ms' }}>
+                Farkında
+              </span>
+              <span className={`transition-all duration-1000 ${isVisible.features ? 'opacity-100 translate-x-0 translate-y-0' : 'opacity-0 translate-y-10'}`} 
+                    style={{ transitionDelay: '600ms' }}>
+                Olun
+              </span>
             </h2>
-            <p className="text-xl max-w-2xl mx-auto" style={{ color: '#C7D0DA' }}>
+            <p className={`text-xl max-w-2xl mx-auto transition-all duration-1000 ${isVisible.features ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} 
+               style={{ color: '#C7D0DA', transitionDelay: '800ms' }}>
               Hayatınıza dokunan sanatçıların müziğine ne kadar dokunduğunuzu görün.
             </p>
           </div>
@@ -334,7 +360,7 @@ const OnboardingPage = () => {
                     borderStyle: 'solid' 
                   } : {})
                 }}
-                onClick={() => setCurrentFeature(index)}
+                onClick={() => handleFeatureClick(index)}
                 hoverable
               >
                 <div 
@@ -357,40 +383,43 @@ const OnboardingPage = () => {
           </div>
 
           {/* Feature Showcase */}
-          <div className={`bg-white rounded-2xl shadow-2xl p-8 md:p-12 transition-all duration-1000 ${
+          <div className={`bg-white rounded-2xl p-8 md:p-12 transition-all duration-1000 ${
             isVisible.features ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
-          }`} style={{ transitionDelay: '800ms' }}>
+          }`} style={{ 
+            transitionDelay: '800ms',
+            boxShadow: `
+              0 35px 70px -15px rgba(0, 0, 0, 0.4),
+              0 25px 45px -10px rgba(30, 92, 196, 0.35),
+              0 15px 25px -5px rgba(0, 0, 0, 0.2),
+              0 8px 15px -3px rgba(30, 92, 196, 0.25),
+              0 4px 8px -1px rgba(0, 0, 0, 0.15)
+            `
+          }}>
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className={`transition-all duration-1000 ${
+              <div className={`text-center transition-all duration-1000 ${
                 isVisible.features ? 'opacity-100 -translate-x-0' : 'opacity-0 -translate-x-20'
               }`} style={{ transitionDelay: '1000ms' }}>
                 <h3 className="text-3xl font-bold mb-4" style={{ color: '#000000' }}>
                   {features[currentFeature].title}
                 </h3>
-                <p className="text-lg mb-6 leading-relaxed" style={{ color: '#C7D0DA' }}>
+                <p className="text-lg mb-6 leading-relaxed" style={{ 
+                  background: 'linear-gradient(135deg, #1E5CC4 0%, #4B5563 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  fontWeight: '500'
+                }}>
                   {features[currentFeature].description}
                 </p>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#669DFE' }}></div>
-                    <span style={{ color: '#000000' }}>Kolay ve güvenli</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#669DFE' }}></div>
-                    <span style={{ color: '#000000' }}>Anında işlem</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#669DFE' }}></div>
-                    <span style={{ color: '#000000' }}>7/24 destek</span>
-                  </div>
-                </div>
+               
               </div>
               
               <div className={`relative transition-all duration-1000 ${
                 isVisible.features ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'
               }`} style={{ transitionDelay: '1200ms' }}>
                 <div 
-                  className="w-full h-64 rounded-xl flex items-center justify-center transform transition-all duration-500"
+                  key={bounceKey}
+                  className="w-full h-64 rounded-xl flex items-center justify-center transform transition-all duration-500 bounce-effect"
                   style={{ background: features[currentFeature].gradient }}
                 >
                   <div className="text-6xl">
@@ -403,7 +432,7 @@ const OnboardingPage = () => {
                   {features.map((_, index) => (
                     <button
                       key={index}
-                      onClick={() => setCurrentFeature(index)}
+                      onClick={() => handleFeatureClick(index)}
                       className="w-3 h-3 rounded-full transition-all duration-300"
                       style={{ 
                         backgroundColor: currentFeature === index ? '#669DFE' : '#C7D0DA' 
