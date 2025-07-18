@@ -114,14 +114,14 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'linear-gradient(135deg, #1E5CC4 0%, #669DFE 40%, #B1CBE7 80%, #FBFCFD 100%)' }}>
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            🎵 Respect Platform
+          <h1 className="text-3xl font-bold mb-2" style={{ color: '#1E5CC4' }}>
+            Respect Platform
           </h1>
-          <p className="text-gray-600">
+          <p style={{ color: '#669DFE' }}>
             {isLogin ? 'Hesabınıza giriş yapın' : 'Yeni hesap oluşturun'}
           </p>
         </div>
@@ -132,7 +132,20 @@ const AuthPage = () => {
             <Button
               variant="outline"
               size="lg"
-              className="w-full border-green-500 text-green-700 hover:bg-green-50"
+              className="w-full transition-transform duration-300 ease-out"
+              style={{ 
+                borderColor: '#669DFE', 
+                color: '#1E5CC4',
+                backgroundColor: 'transparent'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = '#FBFCFD';
+                e.target.style.transform = 'scale(1.05)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = 'transparent';
+                e.target.style.transform = 'scale(1)';
+              }}
               onClick={() => handleOAuth('Spotify')}
             >
               <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24" fill="currentColor">
@@ -144,7 +157,20 @@ const AuthPage = () => {
             <Button
               variant="outline"
               size="lg"
-              className="w-full border-red-500 text-red-700 hover:bg-red-50"
+              className="w-full transition-transform duration-300 ease-out"
+              style={{ 
+                borderColor: '#669DFE', 
+                color: '#1E5CC4',
+                backgroundColor: 'transparent'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = '#FBFCFD';
+                e.target.style.transform = 'scale(1.05)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = 'transparent';
+                e.target.style.transform = 'scale(1)';
+              }}
               onClick={() => handleOAuth('Google')}
             >
               <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
@@ -224,7 +250,12 @@ const AuthPage = () => {
               type="submit"
               variant="primary"
               size="lg"
-              className="w-full"
+              className="w-full transition-transform duration-300 ease-out hover:scale-105"
+              style={{ 
+                background: 'linear-gradient(90deg, #669DFE 0%, #1E5CC4 100%)',
+                border: 'none',
+                color: 'white'
+              }}
               loading={loading}
               disabled={loading}
             >
@@ -232,15 +263,50 @@ const AuthPage = () => {
             </Button>
           </form>
 
+          {/* Continue Without Registration */}
+          {isLogin && (
+            <div className="mt-4">
+                             <Button
+                 variant="outline"
+                 size="lg"
+                 className="w-full transition-transform duration-300 ease-out"
+                 style={{ 
+                   borderColor: '#C7D0DA', 
+                   color: '#669DFE',
+                   backgroundColor: 'transparent'
+                 }}
+                 onMouseEnter={(e) => {
+                   e.target.style.backgroundColor = '#FBFCFD';
+                   e.target.style.transform = 'scale(1.05)';
+                 }}
+                 onMouseLeave={(e) => {
+                   e.target.style.backgroundColor = 'transparent';
+                   e.target.style.transform = 'scale(1)';
+                 }}
+                 onClick={() => navigate('/feed')}
+                 disabled={loading}
+               >
+                👤 Üye Olmadan Devam Et
+              </Button>
+            </div>
+          )}
+
           {/* Toggle Auth Mode */}
           <div className="mt-6 text-center">
-            <p className="text-gray-600">
+            <p style={{ color: '#669DFE' }}>
               {isLogin ? 'Hesabınız yok mu?' : 'Zaten hesabınız var mı?'}
               {' '}
               <button
                 type="button"
                 onClick={toggleAuthMode}
-                className="text-purple-600 hover:text-purple-800 font-medium"
+                className="font-medium transition-colors duration-200"
+                style={{ color: '#1E5CC4' }}
+                onMouseEnter={(e) => {
+                  e.target.style.color = '#000000';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.color = '#1E5CC4';
+                }}
                 disabled={loading}
               >
                 {isLogin ? 'Kayıt Ol' : 'Giriş Yap'}
@@ -250,14 +316,34 @@ const AuthPage = () => {
         </Card>
 
         {/* Footer */}
-        <div className="mt-8 text-center text-sm text-gray-500">
+        <div className="mt-8 text-center text-sm" style={{ color: '#C7D0DA' }}>
           <p>
             {isLogin ? 'Giriş yaparak' : 'Kayıt olarak'}{' '}
-            <a href="#" className="text-purple-600 hover:underline">
+            <a 
+              href="#" 
+              className="hover:underline transition-colors duration-200"
+              style={{ color: '#669DFE' }}
+              onMouseEnter={(e) => {
+                e.target.style.color = '#1E5CC4';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.color = '#669DFE';
+              }}
+            >
               Kullanım Şartları
             </a>
             {' '}ve{' '}
-            <a href="#" className="text-purple-600 hover:underline">
+            <a 
+              href="#" 
+              className="hover:underline transition-colors duration-200"
+              style={{ color: '#669DFE' }}
+              onMouseEnter={(e) => {
+                e.target.style.color = '#1E5CC4';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.color = '#669DFE';
+              }}
+            >
               Gizlilik Politikası
             </a>
             'nı kabul etmiş olursunuz.

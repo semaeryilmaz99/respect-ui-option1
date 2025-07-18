@@ -19,9 +19,17 @@ const Input = ({
   const baseClasses = 'w-full border rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed';
   
   const variants = {
-    default: 'border-gray-300 focus:border-purple-500 focus:ring-purple-500',
-    filled: 'bg-gray-50 border-transparent focus:bg-white focus:border-purple-500 focus:ring-purple-500',
-    outline: 'border-2 border-purple-300 focus:border-purple-500 focus:ring-purple-500'
+    default: 'border-gray-300',
+    filled: 'bg-gray-50 border-transparent focus:bg-white',
+    outline: 'border-2'
+  };
+
+  // Set border color for outline variant
+  const getBorderColor = () => {
+    if (variant === 'outline') {
+      return { borderColor: '#B1CBE7' };
+    }
+    return {};
   };
   
   const sizes = {
@@ -62,6 +70,23 @@ const Input = ({
           onChange={onChange}
           disabled={disabled}
           className={inputClasses}
+          style={{
+            '--focus-border-color': '#669DFE',
+            '--focus-ring-color': '#669DFE',
+            ...getBorderColor()
+          }}
+          onFocus={(e) => {
+            if (!error) {
+              e.target.style.borderColor = '#669DFE';
+              e.target.style.boxShadow = '0 0 0 2px rgba(102, 157, 254, 0.2)';
+            }
+          }}
+          onBlur={(e) => {
+            if (!error) {
+              e.target.style.borderColor = variant === 'default' ? '#d1d5db' : 'transparent';
+              e.target.style.boxShadow = 'none';
+            }
+          }}
           {...props}
         />
         
@@ -104,7 +129,7 @@ Input.Amount = ({ currency = '₺', placeholder = '0', className = '', ...props 
     type="number"
     placeholder={placeholder}
     leftIcon={
-      <span className="text-purple-600 font-bold">{currency}</span>
+      <span className="font-bold" style={{ color: '#669DFE' }}>{currency}</span>
     }
     className={className}
     {...props}
