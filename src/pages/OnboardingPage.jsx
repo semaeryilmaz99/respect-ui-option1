@@ -232,8 +232,8 @@ const OnboardingPage = () => {
             </h1>
             
             <p className="text-xl md:text-2xl mb-8 leading-relaxed" style={{ color: '#B1CBE7' }}>
-              Sevdiğiniz sanatçıları destekleyin,<br />
-              Onların koruyucu melekleri olun.
+              Sevdiğiniz sanatçılara destek olarak<br />
+              nitelikli sanat ürünlerini finanse edin.
             </p>
           </div>
 
@@ -308,8 +308,8 @@ const OnboardingPage = () => {
       <section id="features" className="py-20" style={{ backgroundColor: '#FBFCFD' }} data-animate>
         <div className="max-w-7xl mx-auto px-4">
           <div className={`text-center mb-16 transition-all duration-1000 ${isVisible.features ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#000000' }}>
-              Etkinizi Görün
+            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#1E5CC4' }}>
+              Etkinizin Farkında Olun
             </h2>
             <p className="text-xl max-w-2xl mx-auto" style={{ color: '#C7D0DA' }}>
               Hayatınıza dokunan sanatçıların müziğine ne kadar dokunduğunuzu görün.
@@ -321,11 +321,13 @@ const OnboardingPage = () => {
             {features.map((feature, index) => (
               <Card
                 key={feature.id}
-                className={`text-center cursor-pointer transform transition-all duration-500 hover:scale-105 ${
+                className={`text-center cursor-pointer transform transition-all duration-1000 hover:scale-105 hover:transition-transform hover:duration-200 ${
                   currentFeature === index ? 'shadow-2xl' : 'hover:shadow-xl'
-                } ${isVisible.features ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                } ${isVisible.features ? 'opacity-100 translate-x-0 translate-y-0' : `opacity-0 ${
+                  index % 2 === 0 ? '-translate-x-20' : 'translate-x-20'
+                } translate-y-10`}`}
                 style={{ 
-                  transitionDelay: `${index * 100}ms`,
+                  transitionDelay: `${index * 200}ms`,
                   ...(currentFeature === index ? { 
                     borderColor: '#669DFE', 
                     borderWidth: '2px', 
@@ -355,9 +357,13 @@ const OnboardingPage = () => {
           </div>
 
           {/* Feature Showcase */}
-          <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12">
+          <div className={`bg-white rounded-2xl shadow-2xl p-8 md:p-12 transition-all duration-1000 ${
+            isVisible.features ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+          }`} style={{ transitionDelay: '800ms' }}>
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
+              <div className={`transition-all duration-1000 ${
+                isVisible.features ? 'opacity-100 -translate-x-0' : 'opacity-0 -translate-x-20'
+              }`} style={{ transitionDelay: '1000ms' }}>
                 <h3 className="text-3xl font-bold mb-4" style={{ color: '#000000' }}>
                   {features[currentFeature].title}
                 </h3>
@@ -380,7 +386,9 @@ const OnboardingPage = () => {
                 </div>
               </div>
               
-              <div className="relative">
+              <div className={`relative transition-all duration-1000 ${
+                isVisible.features ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'
+              }`} style={{ transitionDelay: '1200ms' }}>
                 <div 
                   className="w-full h-64 rounded-xl flex items-center justify-center transform transition-all duration-500"
                   style={{ background: features[currentFeature].gradient }}
