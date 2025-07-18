@@ -65,6 +65,62 @@ const stageAnimations = `
   }
   
   .bounce-effect { animation: bounceIn 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+  
+  /* Musical Notes Animations */
+  @keyframes floatingNote1 {
+    0% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 0.7; }
+    25% { transform: translate(50px, -30px) rotate(90deg) scale(1.2); opacity: 0.9; }
+    50% { transform: translate(-30px, -60px) rotate(180deg) scale(0.8); opacity: 0.6; }
+    75% { transform: translate(80px, -20px) rotate(270deg) scale(1.1); opacity: 0.8; }
+    100% { transform: translate(0, 0) rotate(360deg) scale(1); opacity: 0.7; }
+  }
+  
+  @keyframes floatingNote2 {
+    0% { transform: translate(0, 0) rotate(0deg) scale(0.8); opacity: 0.6; }
+    30% { transform: translate(-60px, -40px) rotate(120deg) scale(1.3); opacity: 0.9; }
+    60% { transform: translate(40px, -80px) rotate(240deg) scale(0.7); opacity: 0.5; }
+    100% { transform: translate(0, 0) rotate(360deg) scale(0.8); opacity: 0.6; }
+  }
+  
+  @keyframes floatingNote3 {
+    0% { transform: translate(0, 0) rotate(0deg) scale(1.1); opacity: 0.8; }
+    40% { transform: translate(70px, -50px) rotate(160deg) scale(0.9); opacity: 0.4; }
+    70% { transform: translate(-50px, -30px) rotate(280deg) scale(1.4); opacity: 0.9; }
+    100% { transform: translate(0, 0) rotate(360deg) scale(1.1); opacity: 0.8; }
+  }
+  
+  @keyframes floatingNote4 {
+    0% { transform: translate(0, 0) rotate(0deg) scale(0.9); opacity: 0.5; }
+    20% { transform: translate(-40px, -70px) rotate(80deg) scale(1.5); opacity: 0.8; }
+    50% { transform: translate(90px, -10px) rotate(200deg) scale(0.6); opacity: 0.3; }
+    80% { transform: translate(-20px, -90px) rotate(320deg) scale(1.2); opacity: 0.9; }
+    100% { transform: translate(0, 0) rotate(360deg) scale(0.9); opacity: 0.5; }
+  }
+  
+  .music-note-1 { animation: floatingNote1 8s ease-in-out infinite; }
+  .music-note-2 { animation: floatingNote2 12s ease-in-out infinite; }
+  .music-note-3 { animation: floatingNote3 10s ease-in-out infinite; }
+  .music-note-4 { animation: floatingNote4 14s ease-in-out infinite; }
+  
+  /* Testimonial Cards Pulse Animation */
+  @keyframes testimonialPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  .testimonial-pulse-1 { 
+    animation: testimonialPulse 3s ease-in-out infinite;
+    animation-delay: 0s;
+  }
+  .testimonial-pulse-2 { 
+    animation: testimonialPulse 3s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+  .testimonial-pulse-3 { 
+    animation: testimonialPulse 3s ease-in-out infinite;
+    animation-delay: 2s;
+  }
 `;
 
 // Add styles to head
@@ -144,20 +200,22 @@ const OnboardingPage = () => {
     setBounceKey(prev => prev + 1);
   };
 
-  // Intersection Observer for animations
+  // Intersection Observer for continuous animations
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(prev => ({
-              ...prev,
-              [entry.target.id]: true
-            }));
-          }
+          // Always update visibility state based on intersection
+          setIsVisible(prev => ({
+            ...prev,
+            [entry.target.id]: entry.isIntersecting
+          }));
         });
       },
-      { threshold: 0.1 }
+      { 
+        threshold: 0.2, // Trigger when 20% of element is visible
+        rootMargin: '-10% 0px -10% 0px' // Add some margin for better triggering
+      }
     );
 
     // Observe all sections
@@ -459,7 +517,7 @@ const OnboardingPage = () => {
               <Card
                 key={index}
                 variant="dark"
-                className={`text-center transform transition-all duration-700 ${isVisible.testimonials ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                className={`text-center transform transition-all duration-700 testimonial-pulse-${index + 1} ${isVisible.testimonials ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
                 style={{ 
                   transitionDelay: `${index * 200}ms`,
                   backgroundColor: '#669DFE',
@@ -481,34 +539,64 @@ const OnboardingPage = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 text-white text-center" style={{ background: 'linear-gradient(90deg, #669DFE 0%, #1E5CC4 100%)' }}>
-        <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+      <section className="relative py-20 text-white text-center overflow-hidden" style={{ background: 'linear-gradient(90deg, #669DFE 0%, #1E5CC4 100%)' }} data-animate id="finalCTA">
+        {/* Floating Musical Notes */}
+        <div className={`absolute inset-0 transition-all duration-1500 ${isVisible.finalCTA ? 'opacity-100' : 'opacity-0'}`}>
+          {/* Large Notes */}
+          <div className="absolute top-1/4 left-1/6 text-4xl music-note-1" style={{ color: '#B1CBE7', mixBlendMode: 'screen' }}>♪</div>
+          <div className="absolute top-1/3 right-1/5 text-5xl music-note-2" style={{ color: '#FBFCFD', mixBlendMode: 'screen' }}>♫</div>
+          <div className="absolute bottom-1/4 left-1/4 text-6xl music-note-3" style={{ color: '#669DFE', mixBlendMode: 'screen' }}>♬</div>
+          <div className="absolute top-1/2 right-1/3 text-3xl music-note-4" style={{ color: '#B1CBE7', mixBlendMode: 'screen' }}>♩</div>
+          
+          {/* Medium Notes */}
+          <div className="absolute top-1/6 right-1/6 text-3xl music-note-2" style={{ color: '#FBFCFD', mixBlendMode: 'screen', animationDelay: '2s' }}>♪</div>
+          <div className="absolute bottom-1/3 right-1/4 text-4xl music-note-1" style={{ color: '#669DFE', mixBlendMode: 'screen', animationDelay: '3s' }}>♫</div>
+          <div className="absolute top-3/4 left-1/3 text-2xl music-note-3" style={{ color: '#B1CBE7', mixBlendMode: 'screen', animationDelay: '1s' }}>♯</div>
+          <div className="absolute bottom-1/6 right-1/8 text-5xl music-note-4" style={{ color: '#FBFCFD', mixBlendMode: 'screen', animationDelay: '4s' }}>♬</div>
+          
+          {/* Small Accent Notes */}
+          <div className="absolute top-1/5 left-1/2 text-2xl music-note-1" style={{ color: '#669DFE', mixBlendMode: 'screen', animationDelay: '1.5s' }}>♭</div>
+          <div className="absolute bottom-1/5 left-1/8 text-3xl music-note-3" style={{ color: '#B1CBE7', mixBlendMode: 'screen', animationDelay: '2.5s' }}>♪</div>
+          <div className="absolute top-2/3 right-1/6 text-2xl music-note-2" style={{ color: '#FBFCFD', mixBlendMode: 'screen', animationDelay: '3.5s' }}>♩</div>
+          <div className="absolute top-1/8 left-1/3 text-4xl music-note-4" style={{ color: '#669DFE', mixBlendMode: 'screen', animationDelay: '0.5s' }}>♫</div>
+        </div>
+
+        <div className="relative z-10 max-w-4xl mx-auto px-4">
+          <h2 className={`text-4xl md:text-5xl font-bold mb-6 transition-all duration-1200 ${
+            isVisible.finalCTA ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-20'
+          }`} style={{ transitionDelay: '400ms' }}>
             Müzik Yolculuğuna Başla
           </h2>
-          <p className="text-xl mb-8" style={{ color: '#B1CBE7' }}>
+          <p className={`text-xl mb-8 transition-all duration-1200 ${
+            isVisible.finalCTA ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'
+          }`} style={{ color: '#B1CBE7', transitionDelay: '600ms' }}>
             Sevdiğin sanatçılara destek ol, yeni müzikler keşfet ve toplulukla etkileşim kur.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="xl"
-              className="border-none shadow-xl transform hover:scale-110 transition-all duration-500 ease-out"
+              className={`border-none shadow-xl transform hover:scale-110 transition-all duration-1200 ease-out ${
+                isVisible.finalCTA ? 'opacity-100 translate-x-0 translate-y-0' : 'opacity-0 -translate-x-20 translate-y-10'
+              }`}
               style={{ 
                 backgroundColor: '#FBFCFD', 
                 color: '#1E5CC4',
                 transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                transformOrigin: 'center left'
+                transformOrigin: 'center left',
+                transitionDelay: '800ms'
               }}
               onMouseEnter={(e) => {
                 e.target.style.backgroundColor = '#C7D0DA';
                 e.target.style.color = '#000000';
-                e.target.style.transform = 'scale(1.1)';
+                e.target.style.transform = 'scale(1.1) translate(0, 0)';
+                e.target.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
               }}
               onMouseLeave={(e) => {
                 e.target.style.backgroundColor = '#FBFCFD';
                 e.target.style.color = '#1E5CC4';
-                e.target.style.transform = 'scale(1)';
+                e.target.style.transform = 'scale(1) translate(0, 0)';
+                e.target.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
               }}
               onClick={() => navigate('/auth')}
             >
@@ -516,22 +604,27 @@ const OnboardingPage = () => {
             </Button>
             <Button 
               size="xl"
-              className="border-none shadow-xl transform hover:scale-110 transition-all duration-500 ease-out"
+              className={`border-none shadow-xl transform hover:scale-110 transition-all duration-1200 ease-out ${
+                isVisible.finalCTA ? 'opacity-100 translate-x-0 translate-y-0' : 'opacity-0 translate-x-20 translate-y-10'
+              }`}
               style={{ 
                 backgroundColor: '#FBFCFD', 
                 color: '#1E5CC4',
                 transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                transformOrigin: 'center right'
+                transformOrigin: 'center right',
+                transitionDelay: '1000ms'
               }}
               onMouseEnter={(e) => {
                 e.target.style.backgroundColor = '#C7D0DA';
                 e.target.style.color = '#000000';
-                e.target.style.transform = 'scale(1.1)';
+                e.target.style.transform = 'scale(1.1) translate(0, 0)';
+                e.target.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
               }}
               onMouseLeave={(e) => {
                 e.target.style.backgroundColor = '#FBFCFD';
                 e.target.style.color = '#1E5CC4';
-                e.target.style.transform = 'scale(1)';
+                e.target.style.transform = 'scale(1) translate(0, 0)';
+                e.target.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
               }}
             >
               İletişime Geç
