@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Card, Badge } from '../components/ui';
+import { Button, Card, Badge, OnboardingModal } from '../components/ui';
 
 // CSS Animations for stage lights effect
 const stageAnimations = `
@@ -135,6 +135,7 @@ const OnboardingPage = () => {
   const [currentFeature, setCurrentFeature] = useState(0);
   const [isVisible, setIsVisible] = useState({});
   const [bounceKey, setBounceKey] = useState(0);
+  const [showModal, setShowModal] = useState(false);
 
   const features = [
     {
@@ -225,11 +226,7 @@ const OnboardingPage = () => {
     return () => observer.disconnect();
   }, []);
 
-  const scrollToFeatures = () => {
-    document.getElementById('features').scrollIntoView({ 
-      behavior: 'smooth' 
-    });
-  };
+
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FBFCFD' }}>
@@ -366,7 +363,7 @@ const OnboardingPage = () => {
                 e.target.style.background = 'linear-gradient(90deg, #669DFE 0%, #B1CBE7 100%)';
                 e.target.style.transform = 'scale(1)';
               }}
-              onClick={scrollToFeatures}
+              onClick={() => setShowModal(true)}
             >
               Daha Fazla Öğren
             </Button>
@@ -632,6 +629,13 @@ const OnboardingPage = () => {
           </div>
         </div>
       </section>
+
+      {/* Onboarding Modal */}
+      <OnboardingModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        onGetStarted={() => navigate('/auth')}
+      />
     </div>
   );
 };

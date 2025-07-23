@@ -13,5 +13,8 @@ export { default as RespectModal } from '../RespectModal.jsx';
 // Profile Components
 export { default as ProfileEditModal } from '../ProfileEditModal.jsx';
 
+// Onboarding Components
+export { default as OnboardingModal } from '../OnboardingModal.jsx';
+
 // Böylece componentleri şöyle import edebiliriz:
-// import { Button, Card, Avatar, Badge, RespectWidget, RespectModal } from '@/components/ui'; 
+// import { Button, Card, Avatar, Badge, RespectWidget, RespectModal, OnboardingModal } from '@/components/ui'; 
